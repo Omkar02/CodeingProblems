@@ -14,7 +14,7 @@ def CodeTimeLogging(Flag, filename):
                                    'EndTime': None,
                                    'Duration': None}
             subprocess.call('git add . ', shell=True)
-            subprocess.call('git commit -m "Inillized {filename}"', shell=True)
+            subprocess.call(f'git commit -m "Inillized {filename}"', shell=True)
         else:
             raise Exception('Wrong Flag for the File!')
 
