@@ -1,3 +1,4 @@
+import subprocess
 import datetime
 import os
 
@@ -6,12 +7,14 @@ def CodeTimeLogging(Flag, filename):
     prevEntry = getPreviousEntryDict()
 
     if filename not in prevEntry:
-        if Flag:
+        if Flag == 'S':
             prevEntry[filename] = {'StartDate': datetime.datetime.now().date(),
                                    'EndDate': None,
                                    'StartTime': datetime.datetime.now().strftime('%I:%M:%S %p'),
                                    'EndTime': None,
                                    'Duration': None}
+            subprocess.call('git add . ', shell=True)
+            subprocess.call('git commit -m "Inillized {filename}"', shell=True)
         else:
             raise Exception('Wrong Flag for the File!')
 
@@ -25,6 +28,10 @@ def CodeTimeLogging(Flag, filename):
         duration_in_s = (datetime.datetime.now() - StartTimeDuration).total_seconds()
         prevEntry[filename]['Duration'] = int(divmod(duration_in_s, 60)[0])
 
+        subprocess.call('git commit -m "Finished{filename}"', shell=True)
+
+
+    subprocess.call('git push origin master', shell=True)    
     saveEntry(prevEntry)
 
 
@@ -84,4 +91,4 @@ if not os.path.exists('Stuff/loggingInfo.csv'):
 # fileName = main.__file__
 # fileName = fileName.split('\\')[-1]
 
-CodeTimeLogging(Flag='F', filename='fi')
+# CodeTimeLogging(Flag='F', filename='fi')
