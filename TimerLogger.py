@@ -2,6 +2,8 @@ import subprocess
 import datetime
 import os
 
+cwd = ['C:/Users/omkar/Desktop/Python_Projects/CodeingProblems/Stuff', 'C:/Users/omkar/Desktop/Python_Projects/CodeingProblems/']
+
 
 def CodeTimeLogging(Flag, filename):
     prevEntry = getPreviousEntryDict()
@@ -14,7 +16,8 @@ def CodeTimeLogging(Flag, filename):
                                    'EndTime': None,
                                    'Duration': None}
             subprocess.call('git add . ', shell=True)
-            subprocess.call(f'git commit -m "Inillized {filename}"', shell=True)
+            subprocess.call(f'git commit -m "Inillized {filename}"', cwd=cwd[0], shell=True)
+            subprocess.call(f'git commit -m "Inillized {filename}"', cwd=cwd[1], shell=True)
         else:
             raise Exception('Wrong Flag for the File!')
 
@@ -28,10 +31,9 @@ def CodeTimeLogging(Flag, filename):
         duration_in_s = (datetime.datetime.now() - StartTimeDuration).total_seconds()
         prevEntry[filename]['Duration'] = int(divmod(duration_in_s, 60)[0])
 
-        subprocess.call(f'git commit -m "Finished{filename}"', shell=True)
+        subprocess.call(f'git commit -m "Finished{filename}"', cwd=cwd, shell=True)
 
-
-    subprocess.call('git push origin master', shell=True)    
+    subprocess.call('git push -f origin master', shell=True)
     saveEntry(prevEntry)
 
 
