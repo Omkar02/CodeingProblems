@@ -5,5 +5,5 @@ fileName = main.__file__
 fileName = fileName.split('\\')[-1]
 
 
-CodeTimeLogging(Flag='S', filename=fileName)
+CodeTimeLogging(Flag='F', filename=fileName)
 # this

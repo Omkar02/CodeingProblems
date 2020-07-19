@@ -31,7 +31,8 @@ def CodeTimeLogging(Flag, filename):
         duration_in_s = (datetime.datetime.now() - StartTimeDuration).total_seconds()
         prevEntry[filename]['Duration'] = int(divmod(duration_in_s, 60)[0])
 
-        subprocess.call(f'git commit -m "Finished{filename}"', cwd=cwd, shell=True)
+        subprocess.call(f'git commit -m "Finished{filename}"', cwd=cwd[0], shell=True)
+        subprocess.call(f'git commit -m "Finished{filename}"', cwd=cwd[1], shell=True)
 
     subprocess.call('git push -f origin master', shell=True)
     saveEntry(prevEntry)
